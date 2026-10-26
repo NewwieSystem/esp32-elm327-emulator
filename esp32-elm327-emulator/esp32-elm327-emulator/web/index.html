@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GhostCar Flasher</title>
+  <meta name="description" content="Flash the GhostCar ELM327 OBD-II emulator to an ESP32 from your browser.">
+  <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+  <style>
+    :root {
+      --bg: #0b0f14; --panel: #131a22; --line: #24303d; --text: #e8eef5; --dim: #8a99a8;
+      --ghost: #50ffd8; --amber: #ffa62b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; background: radial-gradient(1200px 600px at 50% -10%, #12302b 0%, var(--bg) 60%);
+      color: var(--text); font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      display: flex; justify-content: center; padding: 48px 16px;
+    }
+    main { width: 100%; max-width: 760px; }
+    .logo { font: 700 13px/1 ui-monospace, Menlo, Consolas, monospace; letter-spacing: .35em; color: var(--ghost); }
+    h1 { font-size: clamp(28px, 6vw, 44px); line-height: 1.1; margin: 12px 0 8px; }
+    .lead { color: var(--dim); margin: 0 0 32px; }
+    .cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+    .card h2 { font-size: 17px; margin: 0; }
+    .card p { margin: 0; color: var(--dim); font-size: 14px; flex: 1; }
+    .tag { align-self: flex-start; font: 600 11px/1 ui-monospace, monospace; padding: 5px 8px; border-radius: 99px; background: #0f2a25; color: var(--ghost); }
+    esp-web-install-button button[slot="activate"] {
+      width: 100%; border: 0; border-radius: 10px; padding: 11px 14px; cursor: pointer;
+      background: var(--ghost); color: #052019; font-weight: 700; font-size: 15px;
+    }
+    esp-web-install-button button[slot="activate"]:hover { filter: brightness(1.08); }
+    .warn { margin-top: 28px; padding: 14px 16px; border-radius: 12px; border: 1px solid #4a3512; background: #1d160b; color: #f3d7a8; font-size: 14px; }
+    ol { color: var(--dim); padding-left: 20px; }
+    ol b { color: var(--text); }
+    a { color: var(--ghost); }
+    footer { margin-top: 36px; color: var(--dim); font-size: 13px; }
+  </style>
+</head>
+<body>
+<main>
+  <div class="logo">👻 GHOSTCAR</div>
+  <h1>Flash GhostCar to your ESP32</h1>
+  <p class="lead">An ELM327 OBD-II emulator: ten virtual cars over Bluetooth Classic, BLE or Wi-Fi.
+    Plug the board in with USB, pick it below and press Install.</p>
+
+  <div class="cards">
+    <div class="card">
+      <span class="tag">cyd</span>
+      <h2>Cheap Yellow Display</h2>
+      <p>ESP32-2432S028R, 2.8" touchscreen. Try this one first.</p>
+      <esp-web-install-button manifest="manifest-cyd.json"><button slot="activate">Install</button></esp-web-install-button>
+    </div>
+    <div class="card">
+      <span class="tag">cyd-invert</span>
+      <h2>CYD, inverted panel</h2>
+      <p>Same board, for panel batches that show negative colours with the normal build.</p>
+      <esp-web-install-button manifest="manifest-cyd-invert.json"><button slot="activate">Install</button></esp-web-install-button>
+    </div>
+    <div class="card">
+      <span class="tag">esp32dev</span>
+      <h2>Any ESP32 board</h2>
+      <p>WROOM-32 / WROVER without a screen. Control it from the serial console.</p>
+      <esp-web-install-button manifest="manifest-esp32dev.json"><button slot="activate">Install</button></esp-web-install-button>
+    </div>
+  </div>
+
+  <div class="warn">Needs Chrome or Edge on a computer (Web Serial). If the port does not show up, install the
+    CH340 / CP210x USB driver for your board. ESP32-S3 / C3 boards are not supported yet.</div>
+
+  <h2 style="margin-top:32px;font-size:18px">After flashing</h2>
+  <ol>
+    <li><b>Bluetooth Classic</b> (default): pair with <b>OBDII</b> on Android or Windows, then pick it in your OBD app.</li>
+    <li><b>iPhone</b>: switch to BLE or Wi-Fi on the SETUP page (or type <code>link ble</code> in the serial console).</li>
+    <li><b>Wi-Fi</b>: join <b>WiFi_OBDII</b>, set the app to <b>192.168.0.10</b> port <b>35000</b>.</li>
+  </ol>
+
+  <footer>Source, vehicle guide and docs on <a href="https://github.com/NewwieSystem/esp32-elm327-emulator">GitHub</a> · MIT license</footer>
+</main>
+</body>
+</html>
